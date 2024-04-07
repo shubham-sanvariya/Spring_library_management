@@ -1,25 +1,16 @@
-package com.shubh.library_management.entity;
+package com.shubh.library_management.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-
-@Entity
-public class User {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
     private Long userId;
 
     private String userName;
 
     private String userEmail;
 
-    public User() {
+    public UserDTO() {
     }
 
-    public User(Long userId, String userName, String userEmail) {
+    public UserDTO(Long userId, String userName, String userEmail) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
