@@ -1,15 +1,8 @@
-package com.shubh.library_management.entity;
+package com.shubh.library_management.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
+import com.shubh.library_management.entity.User;
 
-@Entity
-public class Book {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BookDTO {
     private Long bookId;
 
     private String bookName;
@@ -18,13 +11,12 @@ public class Book {
 
     private Integer bookCount;
 
-    @JoinColumn(name = "userId")
     private User borrwedBy;
 
-    public Book() {
+    public BookDTO() {
     }
 
-    public Book(Long bookId, String bookName, String bookAuthor, Integer bookCount, User borrwedBy) {
+    public BookDTO(Long bookId, String bookName, String bookAuthor, Integer bookCount, User borrwedBy) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
