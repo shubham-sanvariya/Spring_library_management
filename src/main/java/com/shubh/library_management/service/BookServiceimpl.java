@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.shubh.library_management.dto.BookDTO;
+import com.shubh.library_management.entity.Book;
 import com.shubh.library_management.mapper.BookMapper;
 import com.shubh.library_management.repository.BookRepository;
 
@@ -19,5 +20,14 @@ public class BookServiceimpl implements BookService{
     public List<BookDTO> getAllBooks(){
         return bookRepository.findAll().stream()
         .map((book) -> BookMapper.mapToBookDTO(book)).toList();
+    }
+
+
+    public BookDTO createBook(BookDTO bookDTO) {
+        Book book = BookMapper.mapToBook(bookDTO);
+
+        bookRepository.save(book);
+
+        return BookMapper.mapToBookDTO(book);
     }
 }
