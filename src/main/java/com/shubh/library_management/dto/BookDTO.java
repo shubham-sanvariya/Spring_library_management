@@ -1,7 +1,5 @@
 package com.shubh.library_management.dto;
 
-import com.shubh.library_management.entity.User;
-
 public class BookDTO {
     private Long bookId;
 
@@ -11,17 +9,14 @@ public class BookDTO {
 
     private Integer bookCount;
 
-    private User borrwedBy;
-
     public BookDTO() {
     }
 
-    public BookDTO(Long bookId, String bookName, String bookAuthor, Integer bookCount, User borrwedBy) {
+    public BookDTO(Long bookId, String bookName, String bookAuthor, Integer bookCount) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCount = bookCount;
-        this.borrwedBy = borrwedBy;
     }
 
     public Long getBookId() {
@@ -54,13 +49,5 @@ public class BookDTO {
 
     public void setBookCount(Integer bookCount) {
         this.bookCount = bookCount;
-    }
-
-    public User getBorrwedBy() {
-        return borrwedBy;
-    }
-
-    public void setBorrwedBy(User borrwedBy) {
-        this.borrwedBy = borrwedBy;
     }
 }

@@ -4,8 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -19,19 +17,14 @@ public class Book {
 
     private Integer bookCount;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private User borrwedBy;
-
     public Book() {
     }
 
-    public Book(Long bookId, String bookName, String bookAuthor, Integer bookCount, User borrwedBy) {
+    public Book(Long bookId, String bookName, String bookAuthor, Integer bookCount) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCount = bookCount;
-        this.borrwedBy = borrwedBy;
     }
 
     public Long getBookId() {
@@ -64,13 +57,5 @@ public class Book {
 
     public void setBookCount(Integer bookCount) {
         this.bookCount = bookCount;
-    }
-
-    public User getBorrwedBy() {
-        return borrwedBy;
-    }
-
-    public void setBorrwedBy(User borrwedBy) {
-        this.borrwedBy = borrwedBy;
     }
 }
