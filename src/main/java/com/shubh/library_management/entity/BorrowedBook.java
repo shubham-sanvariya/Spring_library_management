@@ -30,6 +30,15 @@ public class BorrowedBook {
 
     private boolean returned;
 
+    public BorrowedBook(Long borrowedBookId, Book book, User user, String bookName, String userName, boolean returned) {
+        this.borrowedBookId = borrowedBookId;
+        this.book = book;
+        this.user = user;
+        this.bookName = bookName;
+        this.userName = userName;
+        this.returned = returned;
+    }
+
     public Long getBorrowedBookId() {
         return borrowedBookId;
     }
@@ -44,7 +53,7 @@ public class BorrowedBook {
 
     public void setBook(Book book) {
         this.book = book;
-        this.userName = book.getBookName();
+        this.bookName = book.getBookName();
     }
 
     public User getUser() {
