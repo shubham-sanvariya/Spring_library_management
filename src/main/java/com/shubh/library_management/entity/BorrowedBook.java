@@ -1,6 +1,5 @@
 package com.shubh.library_management.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,20 +21,15 @@ public class BorrowedBook {
     @JoinColumn(name = "userId")
     private User user;
 
-    @Column(name = "book_name", insertable = false, updatable = false)
-    private String bookName;
-
-    @Column(name = "user_name", insertable = false, updatable = false)
-    private String userName;
-
     private boolean returned;
 
-    public BorrowedBook(Long borrowedBookId, Book book, User user, String bookName, String userName, boolean returned) {
+    public BorrowedBook() {
+    }
+
+    public BorrowedBook(Long borrowedBookId, Book book, User user,boolean returned) {
         this.borrowedBookId = borrowedBookId;
         this.book = book;
         this.user = user;
-        this.bookName = bookName;
-        this.userName = userName;
         this.returned = returned;
     }
 
@@ -53,7 +47,6 @@ public class BorrowedBook {
 
     public void setBook(Book book) {
         this.book = book;
-        this.bookName = book.getBookName();
     }
 
     public User getUser() {
@@ -62,7 +55,6 @@ public class BorrowedBook {
 
     public void setUser(User user) {
         this.user = user;
-        this.userName = user.getUserName();
     }
 
     public boolean isReturned() {
@@ -72,14 +64,4 @@ public class BorrowedBook {
     public void setReturned(boolean returned) {
         this.returned = returned;
     }
-
-    public String getBookName() {
-        return bookName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    
 }

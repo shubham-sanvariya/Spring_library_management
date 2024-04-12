@@ -1,14 +1,11 @@
 package com.shubh.library_management.dto;
 
-import com.shubh.library_management.entity.Book;
-import com.shubh.library_management.entity.User;
-
 public class BorrowedBookDTO {
     private Long borrowedBookId;
 
-    private Book book;
+    private Long bookId;
 
-    private User user;
+    private Long userId;
 
     private String bookName;
 
@@ -16,11 +13,14 @@ public class BorrowedBookDTO {
 
     private boolean returned;
 
-    public BorrowedBookDTO(Long borrowedBookId, Book book, User user, String bookName, String userName,
+    public BorrowedBookDTO() {
+    }
+
+    public BorrowedBookDTO(Long borrowedBookId, Long bookId, Long userId, String bookName, String userName,
             boolean returned) {
         this.borrowedBookId = borrowedBookId;
-        this.book = book;
-        this.user = user;
+        this.bookId = bookId;
+        this.userId = userId;
         this.bookName = bookName;
         this.userName = userName;
         this.returned = returned;
@@ -34,20 +34,20 @@ public class BorrowedBookDTO {
         this.borrowedBookId = borrowedBookId;
     }
 
-    public Book getBook() {
-        return book;
+    public Long getBookId() {
+        return bookId;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookId(Long bookId) {
+        this.bookId = bookId;
     }
 
-    public User getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getBookName() {
