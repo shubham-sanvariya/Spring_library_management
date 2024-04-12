@@ -22,6 +22,10 @@ public class BookServiceimpl implements BookService{
         .map((book) -> BookMapper.mapToBookDTO(book)).toList();
     }
 
+    public Book getBookbyId(Long bookId){
+        return bookRepository.findById(bookId).get();
+    }
+
 
     public BookDTO createBook(BookDTO bookDTO) {
         Book book = BookMapper.mapToBook(bookDTO);
