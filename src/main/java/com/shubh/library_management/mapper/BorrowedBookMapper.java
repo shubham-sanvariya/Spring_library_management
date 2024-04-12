@@ -1,29 +1,36 @@
 package com.shubh.library_management.mapper;
 
-import com.shubh.library_management.dto.BorrowedBookDTO;
-import com.shubh.library_management.entity.BorrowedBook;
+import org.springframework.stereotype.Service;
 
+import com.shubh.library_management.dto.BorrowedBookDTO;
+import com.shubh.library_management.entity.Book;
+import com.shubh.library_management.entity.BorrowedBook;
+import com.shubh.library_management.entity.User;
+
+@Service
 public class BorrowedBookMapper {
-    public static BorrowedBookDTO mapToBorrowedBookDTO(BorrowedBook borrowedBook){
+
+    public BorrowedBookMapper() {
+    }
+
+    public BorrowedBookDTO mapToBorrowedBookDTO(BorrowedBook borrowedBook){
         BorrowedBookDTO borrowedBookDTO = new BorrowedBookDTO(
             borrowedBook.getBorrowedBookId(),
-            borrowedBook.getBook(),
-            borrowedBook.getUser(),
-            borrowedBook.getBookName(),
-            borrowedBook.getUserName(),
+            borrowedBook.getBook().getBookId(),
+            borrowedBook.getUser().getUserId(),
+            borrowedBook.getBook().getBookName(),
+            borrowedBook.getUser().getUserName(),
             borrowedBook.isReturned()
         );
-
+        System.out.println(borrowedBook.getBorrowedBookId());
         return borrowedBookDTO;
     }
 
-    public static BorrowedBook mapToBorrowedBook(BorrowedBookDTO borrowedBookDTO){
+    public BorrowedBook mapToBorrowedBook(BorrowedBookDTO borrowedBookDTO,Book book,User user){       
         BorrowedBook borrowedBook = new BorrowedBook(
             borrowedBookDTO.getBorrowedBookId(),
-            borrowedBookDTO.getBook(),
-            borrowedBookDTO.getUser(),
-            borrowedBookDTO.getBookName(),
-            borrowedBookDTO.getUserName(),
+            book,
+            user,
             borrowedBookDTO.isReturned()
         );
 
