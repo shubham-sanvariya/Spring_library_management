@@ -22,6 +22,10 @@ public class UserServiceimpl implements UserService{
         return userRepository.findAll().stream()
         .map((user) -> UserMapper.mapToUserDTO(user)).toList();
     }
+
+    public User getUserById(Long userId) {
+        return userRepository.findById(userId).get();
+    }
     
     public UserDTO createUser(UserDTO userDTO){
         User user = UserMapper.mapToUser(userDTO);
