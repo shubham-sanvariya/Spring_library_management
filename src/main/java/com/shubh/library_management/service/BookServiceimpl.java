@@ -29,9 +29,13 @@ public class BookServiceimpl implements BookService{
 
     public BookDTO createBook(BookDTO bookDTO) {
         Book book = BookMapper.mapToBook(bookDTO);
-
+        book.setTotalBookCount(bookDTO.getBookCount());
         bookRepository.save(book);
 
         return BookMapper.mapToBookDTO(book);
+    }
+
+    public Book updateBook(Book book) {
+        return bookRepository.save(book);
     }
 }
