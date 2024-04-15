@@ -17,14 +17,17 @@ public class Book {
 
     private Integer bookCount;
 
+    private Integer totalBookCount;
+
     public Book() {
     }
 
-    public Book(Long bookId, String bookName, String bookAuthor, Integer bookCount) {
+    public Book(Long bookId, String bookName, String bookAuthor, Integer bookCount, Integer totalBookCount) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCount = bookCount;
+        this.totalBookCount = totalBookCount;
     }
 
     public Long getBookId() {
@@ -57,5 +60,13 @@ public class Book {
 
     public void setBookCount(Integer bookCount) {
         this.bookCount = bookCount;
+    }
+
+    public Integer getTotalBookCount() {
+        return totalBookCount;
+    }
+
+    public void setTotalBookCount(Integer totalBookCount) {
+        this.totalBookCount = totalBookCount;
     }
 }

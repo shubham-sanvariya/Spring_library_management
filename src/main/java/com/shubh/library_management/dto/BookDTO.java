@@ -9,14 +9,17 @@ public class BookDTO {
 
     private Integer bookCount;
 
+    private Integer totalBookCount;
+
     public BookDTO() {
     }
 
-    public BookDTO(Long bookId, String bookName, String bookAuthor, Integer bookCount) {
+    public BookDTO(Long bookId, String bookName, String bookAuthor, Integer bookCount, Integer totalBookCount) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCount = bookCount;
+        this.totalBookCount = totalBookCount;
     }
 
     public Long getBookId() {
@@ -49,5 +52,13 @@ public class BookDTO {
 
     public void setBookCount(Integer bookCount) {
         this.bookCount = bookCount;
+    }
+
+    public Integer getTotalBookCount() {
+        return totalBookCount;
+    }
+
+    public void setTotalBookCount(Integer totalBookCount) {
+        this.totalBookCount = totalBookCount;
     }
 }
