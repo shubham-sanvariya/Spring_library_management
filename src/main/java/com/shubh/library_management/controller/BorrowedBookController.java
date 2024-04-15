@@ -32,11 +32,21 @@ public class BorrowedBookController {
     }
 
     @PostMapping
-    public ResponseEntity<BorrowedBookDTO> borrowingBook(@RequestBody BorrowedBookDTO borrowedBookDTO){
-        Book book = bookService.getBookbyId(borrowedBookDTO.getBookId());
-        User user = userService.getUserById(borrowedBookDTO.getUserId());
-        return new ResponseEntity<BorrowedBookDTO>(borrowedBookService.borrowingBook(borrowedBookDTO,book,user)
-        ,HttpStatus.CREATED);
+    public ResponseEntity<?> borrowingBook(@RequestBody BorrowedBookDTO borrowedBookDTO){
+        try {
+            Book book = bookService.getBookbyId(borrowedBookDTO.getBookId());
+            User user = userService.getUserById(borrowedBookDTO.getUserId());
+            ResponseEntity<BorrowedBookDTO> responseEntity = new ResponseEntity<BorrowedBookDTO>(
+                    borrowedBookService.borrowingBook(borrowedBookDTO, book, user),
+                    HttpStatus.CREATED);
+            if (responseEntity.getStatusCode() == HttpStatus.CREATED) {
+                book.setBookCount(book.getBookCount()-1);
+                bookService.updateBook(book);
+            }
+            return responseEntity;
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @GetMapping
