@@ -20,7 +20,17 @@ public class BorrowedBookimpl implements BorrowedBookService{
         this.borrowedBookRepository = borrowedBookRepository;
     }
 
+    public boolean isBookAvailable(int count){
+        if (count == 0) {
+            return false;
+        }
+        return true;
+    }
+
     public BorrowedBookDTO borrowingBook(BorrowedBookDTO borrowedBookDTO, Book book, User user){
+        if (!isBookAvailable(book.getBookCount())) {
+            throw new RuntimeException("book is not available");
+        }
         BorrowedBook borrowedBook = borrowedBookMapper.mapToBorrowedBook(borrowedBookDTO,book,user);
         borrowedBookRepository.save(borrowedBook);
         return borrowedBookMapper.mapToBorrowedBookDTO(borrowedBook);

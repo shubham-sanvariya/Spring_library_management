@@ -22,7 +22,6 @@ public class BorrowedBookMapper {
             borrowedBook.getUser().getUserName(),
             borrowedBook.isReturned()
         );
-        System.out.println(borrowedBook.getBorrowedBookId());
         return borrowedBookDTO;
     }
 
