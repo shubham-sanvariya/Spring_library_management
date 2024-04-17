@@ -2,6 +2,7 @@ package com.shubh.library_management.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shubh.library_management.dto.BorrowedBookDTO;
@@ -16,8 +17,11 @@ public class BorrowedBookimpl implements BorrowedBookService{
     BorrowedBookMapper borrowedBookMapper = new BorrowedBookMapper();
     private BorrowedBookRepository borrowedBookRepository;
 
-    public BorrowedBookimpl(BorrowedBookRepository borrowedBookRepository) {
+    private BookService bookService;
+
+    public BorrowedBookimpl(BorrowedBookRepository borrowedBookRepository, BookService bookService) {
         this.borrowedBookRepository = borrowedBookRepository;
+        this.bookService = bookService;
     }
 
     public boolean isBookAvailable(int count){
@@ -38,6 +42,19 @@ public class BorrowedBookimpl implements BorrowedBookService{
 
     public List<BorrowedBookDTO> getAllBorrowedBooks() {
         return borrowedBookRepository.findAll().stream()
+            .filter((borrowedBook) -> borrowedBook.isReturned() != true)
             .map((borrowedBook) -> borrowedBookMapper.mapToBorrowedBookDTO(borrowedBook)).toList();
+    }
+
+    public BorrowedBookDTO returnBook(Long borrowingBookId){
+        BorrowedBook borrowedBook = borrowedBookRepository.findById(borrowingBookId)
+        .orElseThrow(() -> new RuntimeException("no entry of borrowed book found by this id"));
+
+        borrowedBook.setReturned(true);
+        Book book = bookService.getBookbyId(borrowedBook.getBook().getBookId());
+        book.setBookCount(book.getBookCount()+1);
+        bookService.updateBook(book);
+        
+        return borrowedBookMapper.mapToBorrowedBookDTO(borrowedBook);  
     }
 }

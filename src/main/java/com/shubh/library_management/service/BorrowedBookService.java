@@ -11,5 +11,7 @@ public interface BorrowedBookService {
 
     boolean isBookAvailable(int count);
 
+    BorrowedBookDTO returnBook(Long borrowingBookId);
+
     List<BorrowedBookDTO> getAllBorrowedBooks();
 }
