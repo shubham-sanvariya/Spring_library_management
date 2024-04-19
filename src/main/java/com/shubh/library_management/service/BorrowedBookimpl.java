@@ -8,6 +8,8 @@ import com.shubh.library_management.dto.BorrowedBookDTO;
 import com.shubh.library_management.entity.Book;
 import com.shubh.library_management.entity.BorrowedBook;
 import com.shubh.library_management.entity.User;
+import com.shubh.library_management.exception.BookNotAvailable;
+import com.shubh.library_management.exception.UserAlreadyBorrowedBook;
 import com.shubh.library_management.mapper.BorrowedBookMapper;
 import com.shubh.library_management.repository.BorrowedBookRepository;
 
@@ -38,11 +40,12 @@ public class BorrowedBookimpl implements BorrowedBookService{
         Long userId = borrowedBookDTO.getUserId();
         Book book = bookService.getBookbyId(bookId);
         User user = userService.getUserById(userId);
+        
         if (!checkIfUserCanBorrowBook(userId, bookId)) {
-            throw new RuntimeException("you have already borrowed one copy of this book");
+            throw new UserAlreadyBorrowedBook("you have already borrowed one copy of this book");
         }
         if (!isBookAvailable(book.getBookCount())) {
-            throw new RuntimeException("book is not available");
+            throw new BookNotAvailable("book is not available");
         }
         BorrowedBook borrowedBook = borrowedBookMapper.mapToBorrowedBook(borrowedBookDTO,book,user);
         borrowedBookRepository.save(borrowedBook);
