@@ -14,11 +14,15 @@ public class BorrowedBookMapper {
     }
 
     public BorrowedBookDTO mapToBorrowedBookDTO(BorrowedBook borrowedBook){
+
+        Long bookId = borrowedBook.getBook() != null ? borrowedBook.getBook().getBookId() : null;
+        String bookName = borrowedBook.getBook() != null ? borrowedBook.getBook().getBookName() : "deleted";
+
         BorrowedBookDTO borrowedBookDTO = new BorrowedBookDTO(
             borrowedBook.getBorrowedBookId(),
-            borrowedBook.getBook().getBookId(),
+            bookId,
             borrowedBook.getUser().getUserId(),
-            borrowedBook.getBook().getBookName(),
+            bookName,
             borrowedBook.getUser().getUserName(),
             borrowedBook.isReturned()
         );
