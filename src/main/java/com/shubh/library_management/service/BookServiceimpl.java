@@ -23,19 +23,23 @@ public class BookServiceimpl implements BookService{
     }
 
     public Book getBookbyId(Long bookId){
-        return bookRepository.findById(bookId).get();
+        return bookRepository.findById(bookId)
+            .orElseThrow(() -> new RuntimeException("no book found by this book id"));
     }
-
 
     public BookDTO createBook(BookDTO bookDTO) {
         Book book = BookMapper.mapToBook(bookDTO);
-        book.setTotalBookCount(bookDTO.getBookCount());
+        book.setBookCount(bookDTO.getTotalBookCount());
         bookRepository.save(book);
 
         return BookMapper.mapToBookDTO(book);
     }
 
-    public Book updateBook(Book book) {
-        return bookRepository.save(book);
+    public BookDTO updateBook(Book book) {
+        return BookMapper.mapToBookDTO(bookRepository.save(book));
+    }
+
+    public void deleteBook(Long bookId){
+        bookRepository.deleteById(bookId);
     }
 }
