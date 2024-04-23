@@ -2,6 +2,7 @@ package com.shubh.library_management.controller;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,7 +24,7 @@ import com.shubh.library_management.service.BookService;
 public class BookController {
     private BookService bookService;
 
-    public BookController(BookService bookService) {
+    public BookController(@Lazy BookService bookService) {
         this.bookService = bookService;
     }
 
@@ -54,8 +55,11 @@ public class BookController {
     @DeleteMapping("/{bookId}")
     public ResponseEntity<String> deleteBookByBookId(@PathVariable Long bookId){
         try {
-            bookService.deleteBook(bookId);
-            return new ResponseEntity<String>("Book deleted successfully", HttpStatus.NO_CONTENT);
+            String s = bookService.deleteBook(bookId);
+            if (s.equals("book deleted successfully")) {
+                return new ResponseEntity<String>(s, HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<String>(s,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
         }

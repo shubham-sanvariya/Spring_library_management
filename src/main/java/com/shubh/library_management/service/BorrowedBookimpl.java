@@ -2,6 +2,7 @@ package com.shubh.library_management.service;
 
 import java.util.List;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.shubh.library_management.dto.BorrowedBookDTO;
@@ -21,11 +22,11 @@ public class BorrowedBookimpl implements BorrowedBookService{
     private BookService bookService;
 
     public BorrowedBookimpl(BorrowedBookMapper borrowedBookMapper, BorrowedBookRepository borrowedBookRepository,
-        UserService userService, BookService bookService) {
+        UserService userService, @Lazy BookService bookService) {
         this.borrowedBookMapper = borrowedBookMapper;
         this.borrowedBookRepository = borrowedBookRepository;
-        this.userService = userService;
         this.bookService = bookService;
+        this.userService = userService;
     }
 
     public boolean isBookAvailable(int count){
@@ -75,9 +76,15 @@ public class BorrowedBookimpl implements BorrowedBookService{
         .orElseThrow(() -> new RuntimeException("no entry of borrowed book found by this id"));
 
         borrowedBook.setReturned(true);
+        borrowedBookRepository.save(borrowedBook);
         Book book = bookService.getBookbyId(borrowedBook.getBook().getBookId());
-        book.setBookCount(book.getBookCount()+1);
-        bookService.updateBook(book);
+        if (book.getSetToDeleted()) {
+            bookService.deleteBook(book.getBookId());
+        }
+        else{
+            book.setBookCount(book.getBookCount() + 1);
+            bookService.updateBook(book);
+        }
         
         return borrowedBookMapper.mapToBorrowedBookDTO(borrowedBook);  
     }
