@@ -1,5 +1,8 @@
 package com.shubh.library_management.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +17,8 @@ public class BorrowedBook {
     private Long borrowedBookId;
 
     @ManyToOne
-    @JoinColumn(name = "bookId")
+    @JoinColumn(name = "bookId", nullable = true)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Book book;
 
     @ManyToOne
