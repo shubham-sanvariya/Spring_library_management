@@ -11,15 +11,19 @@ public class BookDTO {
 
     private Integer totalBookCount;
 
+    private Boolean setToDeleted;
+
     public BookDTO() {
     }
 
-    public BookDTO(Long bookId, String bookName, String bookAuthor, Integer bookCount, Integer totalBookCount) {
+    public BookDTO(Long bookId, String bookName, String bookAuthor, Integer bookCount, Integer totalBookCount,
+            Boolean setToDeleted) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCount = bookCount;
         this.totalBookCount = totalBookCount;
+        this.setToDeleted = setToDeleted;
     }
 
     public Long getBookId() {
@@ -60,5 +64,13 @@ public class BookDTO {
 
     public void setTotalBookCount(Integer totalBookCount) {
         this.totalBookCount = totalBookCount;
+    }
+
+    public Boolean getSetToDeleted() {
+        return setToDeleted;
+    }
+
+    public void setSetToDeleted(Boolean setToDeleted) {
+        this.setToDeleted = setToDeleted;
     }
 }
