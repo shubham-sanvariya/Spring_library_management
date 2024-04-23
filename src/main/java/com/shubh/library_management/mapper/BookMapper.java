@@ -10,7 +10,8 @@ public class BookMapper {
             bookDTO.getBookName(),
             bookDTO.getBookAuthor(),
             bookDTO.getBookCount(),
-            bookDTO.getTotalBookCount()
+            bookDTO.getTotalBookCount(),
+            bookDTO.getSetToDeleted()
         );
 
         return book;
@@ -22,7 +23,8 @@ public class BookMapper {
             book.getBookName(),
             book.getBookAuthor(),
             book.getBookCount(),
-            book.getTotalBookCount()
+            book.getTotalBookCount(),
+            book.getSetToDeleted()
         );
 
         return bookDTO;
